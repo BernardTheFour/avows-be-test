@@ -2,6 +2,14 @@
 
 This project is for Avows Technical Test
 
+## Application Features
+ 
+- Kafka Microservice: simulate receiving data from another service by triggering API
+- Liquibase DB Migration: robust database change management
+- Swagger API Documentation: easy and comprehensive API documentation with nice UI
+- Mockito: mock class and object to fully isolate the testing environment
+- Docker Compose: easy to run and setup working environment for developer
+
 ## Prerequisites
 
 - Windows 10 or later
