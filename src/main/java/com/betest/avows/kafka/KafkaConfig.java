@@ -10,6 +10,12 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
@@ -41,7 +47,28 @@ public class KafkaConfig {
         return configProps;
     }
 
-    // producer configs
-
     // consumer configs
+    @Bean
+    public ConsumerFactory<String, String> basicConsumer() {
+        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
+                new JsonDeserializer<>(String.class));
+    }
+
+    @Bean()
+    public ConcurrentKafkaListenerContainerFactory<String, String> basicListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(basicConsumer());
+        return factory;
+    }
+
+    // producer configs
+    @Bean
+    public ProducerFactory<String, String> basicProducer() {
+        return new DefaultKafkaProducerFactory<>(producerConfigs());
+    }
+
+    @Bean
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        return new KafkaTemplate<>(basicProducer());
+    }
 }
