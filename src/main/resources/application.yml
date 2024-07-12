@@ -20,3 +20,8 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/db.master.yml
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: app-group
