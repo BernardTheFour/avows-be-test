@@ -1,0 +1,87 @@
+databaseChangeLog:
+- changeSet:
+    id: 1720895788338-1
+    author: root (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: classroomsPK
+            name: id
+            type: UUID
+        - column:
+            name: name
+            type: VARCHAR(255)
+        tableName: classrooms
+- changeSet:
+    id: 1720895788338-2
+    author: root (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: studentsPK
+            name: id
+            type: UUID
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: nisn
+            type: VARCHAR(255)
+        - column:
+            name: classroom_id
+            type: UUID
+        tableName: students
+- changeSet:
+    id: 1720895788338-3
+    author: root (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: id
+        constraintName: UC_CLASSROOMSID_COL
+        tableName: classrooms
+- changeSet:
+    id: 1720895788338-4
+    author: root (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: UC_CLASSROOMSNAME_COL
+        tableName: classrooms
+- changeSet:
+    id: 1720895788338-5
+    author: root (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: id
+        constraintName: UC_STUDENTSID_COL
+        tableName: students
+- changeSet:
+    id: 1720895788338-6
+    author: root (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: nisn
+        constraintName: UC_STUDENTSNISN_COL
+        tableName: students
+- changeSet:
+    id: 1720895788338-7
+    author: root (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: classroom_id
+        baseTableName: students
+        constraintName: FKn4i882kjg6fdyg2e641yh3jmk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: classrooms
+        validate: true
+
