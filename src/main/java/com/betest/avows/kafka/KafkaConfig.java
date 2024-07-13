@@ -19,6 +19,8 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import com.betest.avows.dtos.StudentDto;
+
 @Configuration
 public class KafkaConfig {
 
@@ -49,26 +51,26 @@ public class KafkaConfig {
 
     // consumer configs
     @Bean
-    public ConsumerFactory<String, String> basicConsumer() {
+    public ConsumerFactory<String, StudentDto> studentConsumer() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
-                new JsonDeserializer<>(String.class));
+                new JsonDeserializer<>(StudentDto.class));
     }
 
     @Bean()
-    public ConcurrentKafkaListenerContainerFactory<String, String> basicListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(basicConsumer());
+    public ConcurrentKafkaListenerContainerFactory<String, StudentDto> studentListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, StudentDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(studentConsumer());
         return factory;
     }
 
     // producer configs
     @Bean
-    public ProducerFactory<String, String> basicProducer() {
+    public ProducerFactory<String, Object> basicProducer() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    public KafkaTemplate<String, Object> basicTemplate() {
         return new KafkaTemplate<>(basicProducer());
     }
 }

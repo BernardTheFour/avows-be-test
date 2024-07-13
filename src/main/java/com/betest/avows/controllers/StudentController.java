@@ -3,8 +3,8 @@ package com.betest.avows.controllers;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.betest.avows.dtos.StudentDto;
 import com.betest.avows.models.Student;
@@ -12,7 +12,7 @@ import com.betest.avows.services.StudentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Controller
+@RestController
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
