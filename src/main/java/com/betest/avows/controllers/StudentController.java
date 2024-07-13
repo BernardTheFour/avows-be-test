@@ -1,6 +1,8 @@
 package com.betest.avows.controllers;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,15 @@ public class StudentController {
         StudentDto studentDto = StudentDto.toDto(studentEntity);
 
         return ResponseEntity.ok(studentDto);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<StudentDto>> getAllStudent() {
+        List<Student> studentEntities = studentService.getAll();
+        List<StudentDto> studentDtos = studentEntities.stream()
+                .map(StudentDto::toDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(studentDtos);
     }
 }

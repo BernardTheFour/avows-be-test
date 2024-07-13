@@ -12,12 +12,26 @@ import jakarta.validation.constraints.Pattern;
 public record StudentDto(
         UUID id,
         @Pattern(regexp = "\\d+", message = "NISN number only") String nisn,
-        String name) {
+        String name,
+        ClassroomDto classroomDto) {
 
-    public static StudentDto toDto(Student entity) {
+    public static StudentDto toDtoDetached(Student entity) {
         return new StudentDto(
                 entity.getId(),
                 entity.getNisn(),
-                entity.getName());
+                entity.getName(),
+                null);
+    }
+
+    public static StudentDto toDto(Student entity) {
+        ClassroomDto classroomDto = ClassroomDto
+                // when chaining dto, avoid circular json printing
+                .toDtoDetached(entity.getClassroom());
+
+        return new StudentDto(
+                entity.getId(),
+                entity.getNisn(),
+                entity.getName(),
+                classroomDto);
     }
 }

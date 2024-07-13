@@ -47,7 +47,7 @@ public class StudentServiceTest {
                 .save(any(Student.class));
 
         // input
-        StudentDto studentDto = StudentDto.toDto(mockEntity);
+        StudentDto studentDto = StudentDto.toDtoDetached(mockEntity);
 
         // test
         Student expectedValue = mockEntity;
@@ -74,7 +74,7 @@ public class StudentServiceTest {
                 .save(any(Student.class));
 
         // input
-        StudentDto studentDto = StudentDto.toDto(mockEntity);
+        StudentDto studentDto = StudentDto.toDtoDetached(mockEntity);
 
         // test
         assertThrows(DuplicateKeyException.class,
