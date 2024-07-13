@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.betest.avows.dtos.ClassroomDto;
+import com.betest.avows.dtos.StudentDto;
 import com.betest.avows.models.Classroom;
 import com.betest.avows.services.ClassroomService;
 
@@ -52,4 +53,14 @@ public class ClassroomController {
 
         return ResponseEntity.ok(classroomDtos);
     }
+
+    @PostMapping("/id/{uuid}/enroll")
+    public ResponseEntity<String> classroomEnrollment(
+            @PathVariable(name = "uuid") UUID uuid,
+            @RequestBody List<StudentDto> studentDtos) {
+        classroomService.classroomEnrollment(uuid, studentDtos);
+
+        return ResponseEntity.ok("Class enrollment success");
+    }
+
 }

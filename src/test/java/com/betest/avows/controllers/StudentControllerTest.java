@@ -3,6 +3,7 @@ package com.betest.avows.controllers;
 import static org.mockito.Mockito.doReturn;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.betest.avows.dtos.StudentDto;
+import com.betest.avows.models.Classroom;
 import com.betest.avows.models.Student;
 import com.betest.avows.services.StudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,13 +41,16 @@ public class StudentControllerTest {
         UUID inputId = UUID.randomUUID();
 
         // stub result
-        Student result = new Student(inputId, "00123", "name");
-        doReturn(result)
+        Student student = new Student(inputId, "00123", "name");
+        Classroom classroom = new Classroom(UUID.randomUUID(), "classname");
+        student.setClassroom(classroom);
+        classroom.setStudents(List.of(student));
+        doReturn(student)
                 .when(mockStudentService)
                 .getById(inputId);
 
         // test
-        StudentDto resultDto = StudentDto.toDtoDetached(result);
+        StudentDto resultDto = StudentDto.toDto(student);
 
         URI uri = new URI("/student/id/" + inputId);
         mockRequest
