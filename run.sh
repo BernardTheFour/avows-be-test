@@ -8,7 +8,7 @@
 
     mvn test 
     # mvn liquibase:update
-    mvn spring-boot:run -e
+    # mvn spring-boot:run -e
 
     # generate db migration
     # mvn liquibase:diff -Dmaven.test.skip=true 

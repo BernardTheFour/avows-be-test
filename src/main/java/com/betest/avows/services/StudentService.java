@@ -19,9 +19,8 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student save(StudentDto studentDto) {
+    public Student saveStudent(StudentDto studentDto) {
         Student entity = new Student(studentDto.name(), studentDto.nisn());
-
         return studentRepository.save(entity);
     }
 
