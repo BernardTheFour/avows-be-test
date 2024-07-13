@@ -45,7 +45,7 @@ public class StudentControllerTest {
                 .getById(inputId);
 
         // test
-        StudentDto resultDto = StudentDto.toDto(result);
+        StudentDto resultDto = StudentDto.toDtoDetached(result);
 
         URI uri = new URI("/student/id/" + inputId);
         mockRequest

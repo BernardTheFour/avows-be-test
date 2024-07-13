@@ -24,7 +24,7 @@ public class StudentController {
     @GetMapping("/id/{uuid}")
     public ResponseEntity<StudentDto> getStudentById(@PathVariable(name = "uuid") UUID uuid) {
         Student studentEntity = studentService.getById(uuid);
-        StudentDto studentDto = StudentDto.toDto(studentEntity);
+        StudentDto studentDto = StudentDto.toDtoDetached(studentEntity);
 
         return ResponseEntity.ok(studentDto);
     }
