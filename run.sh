@@ -7,7 +7,7 @@
     export DB_NAME=demo
 
     mvn test 
-    # mvn liquibase:update
+    mvn liquibase:update
     mvn spring-boot:run -e
 
     # generate db migration
