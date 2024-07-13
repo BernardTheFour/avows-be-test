@@ -1,5 +1,6 @@
 package com.betest.avows.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -29,5 +30,11 @@ public class StudentService {
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
         return entity;
+    }
+
+    public List<Student> getAll() {
+        List<Student> entities = studentRepository.findAll();
+
+        return entities;
     }
 }

@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.betest.avows.dtos.ClassroomDto;
+import com.betest.avows.kafka.KafkaProducer;
+import com.betest.avows.kafka.KafkaTopic.TopicEnum;
 import com.betest.avows.models.Classroom;
 import com.betest.avows.repositories.ClassroomRepository;
 
@@ -15,14 +17,19 @@ import jakarta.persistence.EntityNotFoundException;
 public class ClassroomService {
     private final ClassroomRepository classroomRepository;
 
-    public ClassroomService(ClassroomRepository classroomRepository) {
+    private final KafkaProducer kafkaProducer;
+
+    public ClassroomService(ClassroomRepository classroomRepository, KafkaProducer kafkaProducer) {
         this.classroomRepository = classroomRepository;
+        this.kafkaProducer = kafkaProducer;
     }
 
     public Classroom saveClassroom(ClassroomDto classroomDto) {
         Classroom entity = new Classroom(classroomDto.id(), classroomDto.name());
+        Classroom savedEntity = classroomRepository.save(entity);
 
-        return classroomRepository.save(entity);
+        kafkaProducer.sendMessage(TopicEnum.CLASSROOM, savedEntity);
+        return savedEntity;
     }
 
     public Classroom getClassroomById(UUID id) {

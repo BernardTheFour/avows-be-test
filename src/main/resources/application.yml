@@ -27,3 +27,4 @@ spring:
       group-id: app-group
     topics:
       student: student
+      classroom: classroom

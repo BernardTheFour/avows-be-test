@@ -14,7 +14,6 @@ public record ClassroomDto(
         String name,
         List<StudentDto> students) {
 
-    // avoid circular json printing
     public static ClassroomDto toDtoDetached(Classroom entity) {
         return new ClassroomDto(
                 entity.getId(),
@@ -25,6 +24,7 @@ public record ClassroomDto(
     public static ClassroomDto toDto(Classroom entity) {
         List<StudentDto> studentDtos = entity.getStudents()
                 .stream()
+                // when chaining dto, avoid circular json printing
                 .map(StudentDto::toDtoDetached)
                 .collect(Collectors.toList());
 

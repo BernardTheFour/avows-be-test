@@ -15,7 +15,6 @@ public record StudentDto(
         String name,
         ClassroomDto classroomDto) {
 
-    // avoid circular json printing
     public static StudentDto toDtoDetached(Student entity) {
         return new StudentDto(
                 entity.getId(),
@@ -26,6 +25,7 @@ public record StudentDto(
 
     public static StudentDto toDto(Student entity) {
         ClassroomDto classroomDto = ClassroomDto
+                // when chaining dto, avoid circular json printing
                 .toDtoDetached(entity.getClassroom());
 
         return new StudentDto(
