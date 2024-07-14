@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.betest.avows.dtos.ClassroomDto;
-import com.betest.avows.dtos.StudentDto;
+import com.betest.avows.dtos.ClassroomEnrollmentDto;
 import com.betest.avows.kafka.KafkaProducer;
 import com.betest.avows.kafka.KafkaTopic.TopicEnum;
 import com.betest.avows.models.Classroom;
@@ -56,20 +56,23 @@ public class ClassroomService {
         return entities;
     }
 
-    public void classroomEnrollment(UUID classroomId, List<StudentDto> studentDtos) {
+    public void classroomEnrollment(UUID classroomId, ClassroomEnrollmentDto enrollmentDto) {
         Classroom classroom = getClassroomById(classroomId);
         List<Student> prevList = classroom.getStudents();
 
-        List<Student> nextList = studentDtos.stream()
-                .map((student) -> studentService.getById(student.id()))
+        List<Student> nextList = enrollmentDto.student_ids().stream()
+                .map((id) -> studentService.getById(id))
                 .collect(Collectors.toList());
 
         Set<Student> mergedStudent = new HashSet<>();
         mergedStudent.addAll(prevList);
         mergedStudent.addAll(nextList);
 
-        classroom.setStudents(new ArrayList<>(mergedStudent));
+        mergedStudent.stream()
+                .forEach((student) -> student.setClassroom(classroom));
 
-        classroomRepository.save(classroom);
+        // saving only works for 'one' relation side
+        studentService.saveAllStudent(
+                new ArrayList<>(mergedStudent));
     }
 }

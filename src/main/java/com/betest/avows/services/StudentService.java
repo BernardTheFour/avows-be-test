@@ -25,6 +25,10 @@ public class StudentService {
         return studentRepository.save(entity);
     }
 
+    public List<Student> saveAllStudent(List<Student> entities) {
+        return studentRepository.saveAll(entities);
+    }
+
     public Student getById(UUID id) {
         Student entity = studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));

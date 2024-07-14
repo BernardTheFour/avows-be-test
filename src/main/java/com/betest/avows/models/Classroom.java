@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "classrooms")
 public class Classroom {
-    
+
     @Id
     @GeneratedValue(generator = "classrooms_uuid")
     @Column(unique = true, name = "id")
