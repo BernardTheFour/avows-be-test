@@ -1,5 +1,6 @@
 package com.betest.avows.dtos;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import com.betest.avows.models.Student;
@@ -16,6 +17,10 @@ public record StudentDto(
         ClassroomDto classroomDto) {
 
     public static StudentDto toDtoDetached(Student entity) {
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+
         return new StudentDto(
                 entity.getId(),
                 entity.getNisn(),
