@@ -53,7 +53,7 @@ This project is for Avows Technical Test
     cd /path/to/your/project
     ```
 
-2. Open pgAdmin UI and login using docker-compose creds email and password
+2. Open pgAdmin UI and login using docker-compose pgAdmin4 creds email and password
 
 3. Register new connections by using these information from docker-compose
 
