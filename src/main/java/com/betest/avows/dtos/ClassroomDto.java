@@ -1,6 +1,7 @@
 package com.betest.avows.dtos;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,10 @@ public record ClassroomDto(
         List<StudentDto> students) {
 
     public static ClassroomDto toDtoDetached(Classroom entity) {
+        if (Objects.isNull(entity)){
+            return null;
+        }
+
         return new ClassroomDto(
                 entity.getId(),
                 entity.getName(),

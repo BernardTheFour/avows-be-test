@@ -1,5 +1,6 @@
 package com.betest.avows.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class Classroom {
     String name;
 
     @OneToMany(mappedBy = "classroom", fetch = FetchType.LAZY)
-    List<Student> students;
+    List<Student> students = new ArrayList<>();
 
     public Classroom() {
     }
