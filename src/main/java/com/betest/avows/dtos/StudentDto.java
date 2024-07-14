@@ -14,7 +14,7 @@ public record StudentDto(
         UUID id,
         @Pattern(regexp = "\\d+", message = "NISN number only") String nisn,
         String name,
-        ClassroomDto classroomDto) {
+        ClassroomDto classroom) {
 
     public static StudentDto toDtoDetached(Student entity) {
         if (Objects.isNull(entity)) {
