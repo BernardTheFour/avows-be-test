@@ -83,3 +83,7 @@ To access the API documentation, hit http://localhost:8080/swagger-ui/index.html
 After running docker compose, pgAdmin UI could be accessed from browser.
 
 To access the UI, hit http://localhost:1010/browser/
+
+### Postman API Docs
+
+Postman API documentation can be downloaded [here](/avows-betest-api.postman_collection.json)
