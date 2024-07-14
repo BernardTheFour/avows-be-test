@@ -53,7 +53,20 @@ This project is for Avows Technical Test
     cd /path/to/your/project
     ```
 
-2. Run bash script defined in the `run.sh` file:
+2. Open pgAdmin UI and login using docker-compose creds email and password
+
+3. Register new connections by using these information from docker-compose
+
+    ```
+    Connection hostname: db-postgres12
+    port: 5432
+    username: postgres
+    password: postgres
+    ```
+
+4. Create new database with name 'demo' if database doesn't exist
+
+5. Run bash script defined in the `run.sh` file:
 
     ```bash
     sh run.sh
