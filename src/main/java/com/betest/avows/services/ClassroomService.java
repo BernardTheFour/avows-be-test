@@ -36,7 +36,7 @@ public class ClassroomService {
     }
 
     public Classroom saveClassroom(ClassroomDto classroomDto) {
-        Classroom entity = new Classroom(classroomDto.id(), classroomDto.name());
+        Classroom entity = new Classroom(classroomDto.name());
         Classroom savedEntity = classroomRepository.save(entity);
 
         kafkaProducer.sendMessage(TopicEnum.CLASSROOM, savedEntity);
